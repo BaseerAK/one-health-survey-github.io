@@ -36,6 +36,15 @@ body {
     background-color: #f2f2f2;
   }
   
+  /* Styling for images */
+  img {
+    display: block;
+    margin: 10px auto; /* Centers the image */
+    max-width: 100%; /* Keeps images responsive */
+    height: auto; /* Preserves aspect ratio */
+  }
+  
+
   /* Chart Section */
   #charts {
     margin-top: 20px;
