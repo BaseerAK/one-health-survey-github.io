@@ -1,33 +1,33 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const ctx = document.getElementById("myChart").getContext("2d");
-    const myChart = new Chart(ctx, {
-      type: "bar", // Chart type: bar, line, pie, etc.
-      data: {
-        labels: ["Label1", "Label2", "Label3"], // X-axis labels
-        datasets: [{
-          label: "Sample Dataset",
-          data: [10, 20, 30], // Y-axis data
-          backgroundColor: [
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)"
-          ],
-          borderColor: [
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)"
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+function showSection(sectionId) {
+  // Get the parent section of the clicked button
+  const parentSection = document.getElementById(sectionId).closest('section');
+  
+  // Hide all subsections within the current parent section
+  parentSection.querySelectorAll('.subsection').forEach(subsection => {
+    subsection.style.display = 'none';
   });
   
+  // Show the specific subsection based on sectionId
+  document.getElementById(sectionId).style.display = 'block';
+
+  // Initialize chart if the subsection contains a chart
+  if (sectionId.includes("Chart")) {
+    initializeChart(sectionId);
+  }
+}
+
+
+function initializeChart(chartId) {
+  const ctx = document.getElementById(chartId).getContext('2d');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: "bar",
+    data: { labels: ["Detection", "Prediction"], datasets: [{ data: [33, 6], backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)"] }] },
+    options: { responsive: true, scales: { y: { beginAtZero: true } } }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeChart("purposeChart");  // initialize first chart
+});
