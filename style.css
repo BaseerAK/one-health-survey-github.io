@@ -7,6 +7,27 @@ body {
   line-height: 1.6;
 }
 
+  /*Header and Footer Styling*/
+  #ou-segment-header {
+    background-color: #841617;
+    width: auto;
+    height: 20px;
+  }
+
+  #ou-segment-footer {
+    background-color: #841617;
+    width: auto;
+    margin-top: 10px;
+    height: 150px;
+  }
+
+  #ou-logo {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    padding-top: 10px;
+  }
+/**/
 h1 {
   text-align: center;
   color: #333;
@@ -54,6 +75,12 @@ img {
 #charts {
   margin-top: 20px;
 }
+
+  /*References Section*/
+  .reference {
+    padding-top: 5px;
+    padding-bottom: 10px;
+  }
 
 /* Toggle Buttons Styling */
 .toggle-buttons {
