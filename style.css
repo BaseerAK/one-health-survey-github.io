@@ -46,6 +46,7 @@ table {
   border-collapse: collapse;
   margin: 20px 0;
 }
+
 .subsection table {
   display: block;
   overflow-x: auto;
