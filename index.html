@@ -6,6 +6,8 @@
   <title>DISC OneHealth Data Presentation</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -28,399 +30,346 @@
     </p>
   </section>
 
-  <!-- Data Tables Section -->
-  <section id="data-tables">
+  <!-- Purpose of the System Section with Toggle Buttons -->
+  <section id="purpose-of-system">
     <h2>Purpose of the System</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-purpose')">Data</button>
+      <button onclick="showSection('charts-purpose')">Charts</button>
+      <button onclick="showSection('grid-purpose')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-purpose" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div id="charts-purpose" class="subsection" style="display: none;">
+      <canvas id="purposeChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-purpose" class="subsection" style="display: none;">
+      <div id="excelTableContainer-purpose"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
+
   </section>
 
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+  <!-- Diseases Section with Toggle Buttons -->
+  <section id="diseases">
     <h2>Diseases</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-diseases')">Data</button>
+      <button onclick="showSection('charts-diseases')">Charts</button>
+      <button onclick="showSection('grid-diseases')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-diseases" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div id="charts-diseases" class="subsection" style="display: none;">
+      <canvas id="diseasesChart" width="400" height="300"></canvas>
+    </div>
+    
+    <!-- Grid Section -->
+    <div id="grid-diseases" class="subsection" style="display: none;">
+      <div id="excelTableContainer-diseases"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
 
   </section>
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+
+
+
+  <!-- Datasets Type Section with Toggle Buttons -->
+  <section id="datasets-type">
     <h2>Datasets Type</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-datasets')">Data</button>
+      <button onclick="showSection('charts-datasets')">Charts</button>
+      <button onclick="showSection('grid-datasets')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-datasets" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
 
+    <!-- Charts Section -->
+    <div id="charts-datasets" class="subsection" style="display: none;">
       <img src="Figures/datasets.jpg" alt="Dataset Type Classification" width="400" height="300">
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-datasets" class="subsection" style="display: none;">
+      <div id="excelTableContainer-datasets"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
 
   </section>
-   
-  <!-- Data Tables Section -->
-   <section id="data-tables">
+
+  <!-- Users Section with Toggle Buttons -->
+  <section id="users">
     <h2>Users</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-users')">Data</button>
+      <button onclick="showSection('charts-users')">Charts</button>
+      <button onclick="showSection('grid-users')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-users" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div id="charts-users" class="subsection" style="display: none;">
+      <canvas id="usersChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-users" class="subsection" style="display: none;">
+     <div id="excelTableContainer-datasets"></div>
+     <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+       <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+       <!-- Repeat rows as needed -->
+     </tbody></table>
+    </div>
+
   </section>
 
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+  <!-- Tasks Section with Toggle Buttons -->
+  <section id="tasks">
     <h2>Tasks</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-tasks')">Data</button>
+      <button onclick="showSection('charts-tasks')">Charts</button>
+      <button onclick="showSection('grid-tasks')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-tasks" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div id="charts-tasks" class="subsection" style="display: none;">
+      <canvas id="tasksChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-tasks" class="subsection" style="display: none;">
+      <div id="excelTableContainer-datasets"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
+
   </section>
 
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+  <!-- Visual Representations Section with Toggle Buttons -->
+  <section id="visual-representations">
     <h2>Visual Representations</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-visual')">Data</button>
+      <button onclick="showSection('charts-visual')">Charts</button>
+      <button onclick="showSection('grid-visual')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-visual" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+    
+    <!-- Charts Section -->
+    <div id="charts-visual" class="subsection" style="display: none;">
+      <canvas id="visualChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-visual" class="subsection" style="display: none;">
+      <div id="excelTableContainer-datasets"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
+
   </section>
 
-   <!-- Data Tables Section -->
-   <section id="data-tables">
-    <h2>Visual Analytics Techniques (Approach)</h2>
-    <table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
-        </tbody>
-      </table>
-  </section>
-
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+  <!-- Interactive Analysis Ability Section with Toggle Buttons -->
+  <section id="interactive-analysis">
     <h2>Interactive Analysis Ability</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-interactive')">Data</button>
+      <button onclick="showSection('charts-interactive')">Charts</button>
+      <button onclick="showSection('grid-interactive')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-interactive" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div id="charts-interactive" class="subsection" style="display: none;">
+      <canvas id="interactiveChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-interactive" class="subsection" style="display: none;">
+      <div id="excelTableContainer-datasets"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
+
   </section>
 
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+  <!-- Paper Type Section with Toggle Buttons -->
+  <section id="paper-type">
     <h2>Paper Type</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-paper')">Data</button>
+      <button onclick="showSection('charts-paper')">Charts</button>
+      <button onclick="showSection('grid-paper')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-paper" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Charts Section -->
+    <div id="charts-paper" class="subsection" style="display: none;">
+      <canvas id="paperChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-paper" class="subsection" style="display: none;">
+      <div id="excelTableContainer-datasets"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
   </section>
 
-   <!-- Data Tables Section -->
-   <section id="data-tables">
+  <!-- System/Dashboard Section with Toggle Buttons -->
+  <section id="system-dashboard">
     <h2>System/Dashboard</h2>
-    <table>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-system')">Data</button>
+      <button onclick="showSection('charts-system')">Charts</button>
+      <button onclick="showSection('grid-system')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-system" class="subsection">
+      <table>
         <thead>
-          <tr>
-            <th>Category</th>
-            <th>Percentage</th>
-          </tr>
+          <tr><th>Category</th><th>Percentage</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Detection</td>
-            <td>33%</td>
-          </tr>
-          <tr>
-            <td>Prediction/Forecasting</td>
-            <td>6%</td>
-          </tr>
-          <tr>
-            <td>Row 3, Column 1</td>
-            <td>Row 3, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 4, Column 1</td>
-            <td>Row 4, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 5, Column 1</td>
-            <td>Row 5, Column 2</td>
-          </tr>
-          <tr>
-            <td>Row 6, Column 1</td>
-            <td>Row 6, Column 2</td>
-          </tr>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
         </tbody>
       </table>
-  </section>
+    </div>
 
-  <!-- Charts Section -->
-  <section id="charts">
-    <h2>Charts</h2>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <!-- Charts Section -->
+    <div id="charts-system" class="subsection" style="display: none;">
+      <canvas id="systemChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-system" class="subsection" style="display: none;">
+      <div id="excelTableContainer-datasets"></div>
+      <table><thead><tr><th>Item</th><th>Criteria 1</th><th>Criteria 2</th><th>Criteria 3</th><th>Criteria 4</th><th>Criteria 5</th><th>Criteria 6</th></tr></thead><tbody>
+        <tr><td>Item 1</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td><td>✔️</td><td>❌</td></tr>
+        <!-- Repeat rows as needed -->
+      </tbody></table>
+    </div>
   </section>
 
   <!-- References Section -->
