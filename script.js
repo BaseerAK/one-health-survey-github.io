@@ -13,7 +13,7 @@ function showSection(subsectionId) {
 
 async function loadExcelSheet(sheetName, containerId) {
   // Fetch the Excel file
-  const response = await fetch('papers(Tasks).csv'); // Replace with your Excel file path
+  const response = await fetch('papers.xlsx'); // Replace with your Excel file path
   const arrayBuffer = await response.arrayBuffer();
   const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 
@@ -30,25 +30,38 @@ async function loadExcelSheet(sheetName, containerId) {
 }
 
 // Function to handle showing the correct section and loading the table if it's a massive table section
-function showGrid(sectionId) {
-  const subsections = document.querySelectorAll(`#${sectionId.split('-')[0]} .subsection`);
-  subsections.forEach((subsection) => {
-      subsection.style.display = 'none';
+function showGrid(subsectionId) {
+  const section = document.getElementById(subsectionId).closest("section");
+  const subsections = section.querySelectorAll(".subsection");
+  subsections.forEach(subsection => {
+      subsection.style.display = "none";
   });
-  document.getElementById(sectionId).style.display = 'block';
 
-  // Load the appropriate sheet when the "Massive Table" section is shown
-  if (sectionId.includes('excelTable')) {
-      const sheetMap = {
-          'massive-table-purpose': 'Purpose of the System',
-          'massive-table-diseases': 'Diseases',
-          'massive-table-datasets': 'Datasets Type',
-          'massive-table-users': 'Users',
-          // Add other mappings for sections as needed
-      };
-      loadExcelSheet(sheetMap[sectionId], `excelTableContainer-${sectionId.split('-')[2]}`);
+  // Show the clicked subsection
+  document.getElementById(subsectionId).style.display = "block";
+
+  // Ensure the sectionId matches the expected pattern for sheetMap
+  const sheetMap = {
+    'grid-purpose': 'Purpose of the System',
+    'grid-diseases': 'Diseases',
+    'grid-datasets': 'Datasets Type',
+    'grid-users': 'Users',
+  };
+
+  const sheetName = sheetMap[subsectionId];
+  const containerId = `excelTableContainer-${subsectionId.split('-')[1]}`;
+
+  // Only load the Excel sheet if there is a matching sheet name
+  if (sheetName) {
+      loadExcelSheet(sheetName, containerId);
+  } else {
+      console.error(`No matching sheet name found for sectionId: ${subsectionId}`);
   }
 }
+
+
+
+
 
 
 function initializeChart(chartId) {
