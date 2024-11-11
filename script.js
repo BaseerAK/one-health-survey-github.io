@@ -51,6 +51,7 @@ function showGrid(subsectionId) {
     'grid-users': 'Users',
     'grid-tasks': 'Tasks',
     'grid-visual': 'Visual Representations',
+    'grid-analytics': 'Visual Analytics Techniques (Ap',
     'grid-interactive': 'Interactive Analysis Ability',
     'grid-paper': 'Paper Type',
     'grid-system': 'System or Dashboard',

@@ -236,6 +236,40 @@
 
   </section>
 
+   <!-- Visual Representations Section with Toggle Buttons -->
+   <section id="visual-analytics">
+    <h2>Visual Analytics Techniques (Approach)</h2>
+    <div class="toggle-buttons">
+      <button onclick="showSection('data-analytics')">Data</button>
+      <button onclick="showSection('charts-analytics')">Charts</button>
+      <button onclick="showGrid('grid-analytics')">Grid</button>
+    </div>
+
+    <!-- Data Section -->
+    <div id="data-analytics" class="subsection">
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Percentage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Detection</td><td>33%</td></tr>
+          <tr><td>Prediction/Forecasting</td><td>6%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Charts Section -->
+    <div id="charts-analytics" class="subsection" style="display: none;">
+      <canvas id="visualChart" width="400" height="300"></canvas>
+    </div>
+
+    <!-- Grid Section -->
+    <div id="grid-analytics" class="subsection" style="display: none;">
+      <div id="excelTableContainer-analytics"></div>
+    </div>
+
+  </section>
+
   <!-- Interactive Analysis Ability Section with Toggle Buttons -->
   <section id="interactive-analysis">
     <h2>Interactive Analysis Ability</h2>
