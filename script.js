@@ -49,7 +49,13 @@ function showGrid(subsectionId) {
     'grid-diseases': 'Diseases',
     'grid-datasets': 'Datasets Type',
     'grid-users': 'Users',
+    'grid-tasks': 'Tasks',
+    'grid-visual': 'Visual Representations',
+    'grid-interactive': 'Interactive Analysis Ability',
+    'grid-paper': 'Paper Type',
+    'grid-system': 'System or Dashboard',
   };
+    
 
   const sheetName = sheetMap[subsectionId];
   const containerId = `excelTableContainer-${subsectionId.split('-')[1]}`;
