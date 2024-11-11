@@ -60,9 +60,17 @@ th, td {
   text-align: center;
 }
 
+
 th {
   background-color: #f2f2f2;
 }
+
+.checkmark {
+  color: green;
+  font-weight: bold;
+}
+
+
 
 /* Styling for images */
 img {
@@ -100,6 +108,10 @@ img {
 
 .toggle-buttons button:hover {
   background-color: #0056b3;
+}
+
+.toggle-buttons button.active {
+  background-color: #2c3c4d;
 }
 
 /* Subsection styling */
