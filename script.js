@@ -20,15 +20,32 @@ async function loadExcelSheet(sheetName, containerId) {
   // Get the specified sheet by name
   const sheet = workbook.Sheets[sheetName];
   if (sheet) {
-      // Convert the sheet to HTML
-      const htmlTable = XLSX.utils.sheet_to_html(sheet);
-      // Inject the HTML table into the specified container
-      document.getElementById(containerId).innerHTML = htmlTable;
+    let htmlTable = XLSX.utils.sheet_to_html(sheet);
 
-      // After table is created, replace "P" with checkmarks
-      replacePWithCheckmark(containerId);
+    // Add a custom class to the table tag
+    const uniqueId = `dataTable-${containerId}`;
+    htmlTable = htmlTable.replace('<table', `<table class="excel-table" id="${uniqueId}"`);
+    $(`#${uniqueId}`).DataTable();
+
+    // Wrap the table in a container div for styling and responsiveness
+    const tableContainer = document.getElementById(containerId);
+    tableContainer.innerHTML = `<div class="excel-table-container">${htmlTable}</div>`;
+
+    // Debug: Check the rendered table structure
+    console.log("Generated Table HTML:", tableContainer.innerHTML);
+
+    // After table creation, initialize DataTables
+    try {
+      $('#dataTable').DataTable(); // Initialize DataTables
+    } catch (error) {
+      console.error("DataTables initialization failed:", error);
+    }
+
+    // Replace "P" with checkmarks after table creation
+    replacePWithCheckmark(containerId);
+
   } else {
-      document.getElementById(containerId).innerHTML = "<p>Sheet not found.</p>";
+    document.getElementById(containerId).innerHTML = "<p>Sheet not found.</p>";
   }
 }
 
@@ -71,15 +88,25 @@ function showGrid(subsectionId) {
 
 function replacePWithCheckmark(containerId) {
   const tableContainer = document.getElementById(containerId);
+  if (!tableContainer) {
+    console.error(`Container with ID ${containerId} not found`);
+    return;
+  }
+  
   const cells = tableContainer.querySelectorAll("td");
+  if (cells.length === 0) {
+    console.warn(`No table cells found in container ${containerId}`);
+  }
 
   cells.forEach(cell => {
     const cellContent = cell.textContent.trim();
-    
+    console.log(`Checking cell content: "${cellContent}"`); // Log cell content
+
     // Check if cell content is "P" or matches typical tickmark alternatives
     if (cellContent === "P" ) {
       cell.innerHTML = "&#10003;"; // Unicode for checkmark
       cell.classList.add("checkmark"); // Optional CSS class for styling
+      console.log(`Replaced "P" with checkmark in cell.`);
     }
   });
 }
@@ -106,20 +133,20 @@ function displayTable(data) {
 }
 
 
-function initializeChart(chartId) {
-  const ctx = document.getElementById(chartId).getContext('2d');
-  if (!ctx) return;
+// function initializeChart(chartId) {
+//   const ctx = document.getElementById(chartId).getContext('2d');
+//   if (!ctx) return;
 
-  new Chart(ctx, {
-    type: "bar",
-    data: { labels: ["Detection", "Prediction"], datasets: [{ data: [33, 6], backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)"] }] },
-    options: { responsive: true, scales: { y: { beginAtZero: true } } }
-  });
-}
+//   new Chart(ctx, {
+//     type: "bar",
+//     data: { labels: ["Detection", "Prediction"], datasets: [{ data: [33, 6], backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)"] }] },
+//     options: { responsive: true, scales: { y: { beginAtZero: true } } }
+//   });
+// }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initializeChart("purposeChart");  // initialize first chart
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   initializeChart("purposeChart");  // initialize first chart
+// });
 
 /*display only image screen for paper*/
 //obtain modal

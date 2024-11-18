@@ -1,9 +1,9 @@
 /* General Styling */
 body {
   font-family: Arial, sans-serif;
-  max-width: 800px;
+  max-width: 1324px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   line-height: 1.6;
 }
 
@@ -18,7 +18,7 @@ body {
     background-color: #841617;
     width: auto;
     margin-top: 10px;
-    height: 150px;
+    height: 250px;
   }
 
   #ou-logo {
@@ -57,7 +57,7 @@ table {
 th, td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center;
+  text-align: left;
 }
 
 
@@ -100,14 +100,14 @@ img {
   padding: 10px 15px;
   margin-right: 10px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #841617;
   color: #fff;
   border: none;
   border-radius: 4px;
 }
 
 .toggle-buttons button:hover {
-  background-color: #0056b3;
+  background-color: #841617;
 }
 
 .toggle-buttons button.active {
@@ -164,4 +164,58 @@ figcaption {
   cursor: pointer;
 }
 
+/* Excel Table Styling */
+.excel-table-container {
+  overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.excel-table th, .excel-table td {
+  border: 1px solid #c89f9f;
+  padding: 8px;
+}
+
+.excel-table th {
+  background-color: #d2df7f;
+  font-weight: bold;
+}
+
+/* Zebra striping for rows */
+.excel-table tr:nth-child(even) {
+  background-color: #92cbb2;
+}
+
+/* Hover effect for rows */
+.excel-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive font size */
+@media screen and (max-width: 600px) {
+  .excel-table th, .excel-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+
+/* Checkmark styling */
+.checkmark {
+  color: green;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.excel-table th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 2;
+}
 
