@@ -120,3 +120,26 @@ function initializeChart(chartId) {
 document.addEventListener("DOMContentLoaded", () => {
   initializeChart("purposeChart");  // initialize first chart
 });
+
+/*display only image screen for paper*/
+//obtain modal
+var modal = document.getElementById('imageModal')
+
+//obtain image and insert into modal
+var img = document.getElementsByClassName("modalImage");
+var modalimg = document.getElementById("image");
+
+var presentModal = function(){
+  modal.style.display = "block";
+  modalimg.src = this.src;
+}
+
+for(i = 0; i < img.length; i++){
+  img[i].addEventListener('click', presentModal);
+}
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function(){
+  modal.style.display = "none";
+}
