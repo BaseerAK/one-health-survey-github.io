@@ -207,11 +207,11 @@ figcaption {
 }
 
 table.dataTable tbody tr:nth-child(even) {
-  background-color: #c3a0a0 !important; /* Light gray for even rows */
+  background-color: #7cbaa0 !important; /* Light gray for even rows */
 }
 
 table.dataTable tbody tr:nth-child(odd) {
-  background-color: #b42424 !important; /* White for odd rows */
+  background-color: #fefffe !important; /* White for odd rows */
 }
 
 
