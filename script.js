@@ -28,8 +28,8 @@ async function loadExcelSheet(sheetName, containerId) {
     const doc = parser.parseFromString(htmlTable, 'text/html');
     const table = doc.querySelector('table');
 
-    // Ensure the table has correct structure
-    cleanTableStructure(table);
+    // // Ensure the table has correct structure
+    // cleanTableStructure(table);
     
     // Ensure the table has <thead> and <tbody>
     const rows = table.querySelectorAll('tr');
@@ -55,26 +55,16 @@ async function loadExcelSheet(sheetName, containerId) {
       });
     }
 
-    // rows.forEach((row, index) => {
-    //   if (index === 0 || index === 1) {
-    //     // Add Row 0 and Row 1 to the header
-    //     // The first two rows are headers
-    //     thead.appendChild(row);
-    //   } else {
-    //     // Add remaining rows to the body
-    //     // Remaining rows are data rows
-    //     tbody.appendChild(row);
+    
+
+    // // Remove problematic tbody with placeholder rows
+    // table.querySelectorAll('tbody').forEach(tbody => {
+    //   const rows = tbody.querySelectorAll('tr');
+    //   if (rows.length === 1 && rows[0].classList.contains('odd')) {
+    //     console.log("Removing tbody with placeholder row");
+    //     tbody.remove(); // Remove if it has only one row with class="odd"
     //   }
     // });
-
-    // Remove problematic tbody with placeholder rows
-    table.querySelectorAll('tbody').forEach(tbody => {
-      const rows = tbody.querySelectorAll('tr');
-      if (rows.length === 1 && rows[0].classList.contains('odd')) {
-        console.log("Removing tbody with placeholder row");
-        tbody.remove(); // Remove if it has only one row with class="odd"
-      }
-    });
 
     table.appendChild(thead);
     table.appendChild(tbody);
@@ -98,11 +88,7 @@ async function loadExcelSheet(sheetName, containerId) {
     tableContainer.innerHTML = ''; // Clear previous content
     tableContainer.appendChild(table);
 
-    // Initialize or reinitialize DataTable
-    if ($.fn.DataTable.isDataTable(`#${uniqueId}`)) {
-      // If DataTable is already initialized, destroy it
-      $(`#${uniqueId}`).DataTable().destroy();
-    }
+   
 
     // Clean up data in the first column
     table.querySelectorAll('tbody tr').forEach(row => {
@@ -127,37 +113,39 @@ async function loadExcelSheet(sheetName, containerId) {
     console.log(XLSX.utils.sheet_to_json(sheet).length, "rows loaded from sheet");
 
 
-    // Initialize DataTables after fixing the table structure
-    console.log("Initializing DataTables for", `#${uniqueId}`);
-    $(`#${uniqueId}`).on('draw.dt', function () {
-      console.log(`DataTables redraw completed for ${uniqueId}`);
+    if ($.fn.DataTable.isDataTable(`#${uniqueId}`)) {
+      $(`#${uniqueId}`).DataTable().destroy(); // Properly destroy the existing instance
+    }
+    
+    const tableSelector = `#${uniqueId}`;
+    const dataTable = $(tableSelector).DataTable({
+      autoWidth: false,
+      responsive: true,
+      paging: true,
+      searching: false,
+      order: [[0, 'asc']],
+      columnDefs: [
+        { targets: 0, type: 'string', orderable: true },
+        { targets: '_all', orderable: false }
+      ],
     });
     
-    $(() => {
-      const tableSelector = `#${uniqueId}`;
-      if ($(tableSelector).length) { // Check if the table exists
-        $(tableSelector).DataTable({
-          autoWidth: false, // Disable automatic column width adjustment
-          responsive: true, // Enable responsive design
-          paging: true,
-          searching: true,
-          order: [[0, 'asc']],
-          columnDefs: [
-            { targets: 0, type: 'string', orderable: true },
-            { targets: '_all', orderable: false }
-          ],
-        });
-        console.log("DataTables initialized for:", tableSelector);
-      } else {
-        console.error("Table not found for DataTables initialization:", tableSelector);
-      }
-    });
+     // Add search functionality
+     const searchInput = $(`${uniqueId}_filter input`);
+     searchInput.off('input').on('input', function () {
+         const searchValue = $(this).val();
+         dataTable.search(searchValue).draw();
+     });
+    
+    
+    cleanTableStructure(table); // Ensures rendering issues are resolved
+
     
     
     
     // console.log("Table visibility:", $(`#${uniqueId}`).is(':visible'));
 
-    console.log("new49");
+    console.log("new89");
 
     // Remove problematic tbody with placeholder rows
     table.querySelectorAll('tbody').forEach(tbody => {
