@@ -19,35 +19,180 @@ async function loadExcelSheet(sheetName, containerId) {
 
   // Get the specified sheet by name
   const sheet = workbook.Sheets[sheetName];
+  
   if (sheet) {
-    let htmlTable = XLSX.utils.sheet_to_html(sheet);
+    let htmlTable = XLSX.utils.sheet_to_html(sheet); // Ensure headers are included
 
-    // Add a custom class to the table tag
+    // Parse the HTML table and fix structure issues
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlTable, 'text/html');
+    const table = doc.querySelector('table');
+
+    // Ensure the table has correct structure
+    cleanTableStructure(table);
+    
+    // Ensure the table has <thead> and <tbody>
+    const rows = table.querySelectorAll('tr');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    rows.forEach((row, index) => {
+      if (index === 0 || index === 1) {
+        // Add Row 0 and Row 1 to the header
+        // The first two rows are headers
+        thead.appendChild(row);
+      } else {
+        // Add remaining rows to the body
+        // Remaining rows are data rows
+        tbody.appendChild(row);
+      }
+    });
+
+    // Remove problematic tbody with placeholder rows
+    table.querySelectorAll('tbody').forEach(tbody => {
+      const rows = tbody.querySelectorAll('tr');
+      if (rows.length === 1 && rows[0].classList.contains('odd')) {
+        console.log("Removing tbody with placeholder row");
+        tbody.remove(); // Remove if it has only one row with class="odd"
+      }
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    // // Add a custom class and unique ID to the table
+    // const uniqueId = `dataTable-${containerId}`;
+    // table.setAttribute('id', uniqueId);
+    // table.classList.add('excel-table');
+
+    // // Wrap the table in a container div for styling and responsiveness
+    // const tableContainer = document.getElementById(containerId);
+    // tableContainer.innerHTML = `<div class="excel-table-container"></div>`;
+    // tableContainer.querySelector('.excel-table-container').appendChild(table);
+
+    // Add a unique ID to the table
     const uniqueId = `dataTable-${containerId}`;
-    htmlTable = htmlTable.replace('<table', `<table class="excel-table" id="${uniqueId}"`);
-    $(`#${uniqueId}`).DataTable();
+    table.setAttribute('id', uniqueId);
 
-    // Wrap the table in a container div for styling and responsiveness
+    // Insert the table into the container
     const tableContainer = document.getElementById(containerId);
-    tableContainer.innerHTML = `<div class="excel-table-container">${htmlTable}</div>`;
+    tableContainer.innerHTML = ''; // Clear previous content
+    tableContainer.appendChild(table);
 
-    // Debug: Check the rendered table structure
-    console.log("Generated Table HTML:", tableContainer.innerHTML);
-
-    // After table creation, initialize DataTables
-    try {
-      $('#dataTable').DataTable(); // Initialize DataTables
-    } catch (error) {
-      console.error("DataTables initialization failed:", error);
+    // Initialize or reinitialize DataTable
+    if ($.fn.DataTable.isDataTable(`#${uniqueId}`)) {
+      // If DataTable is already initialized, destroy it
+      $(`#${uniqueId}`).DataTable().destroy();
     }
+
+    // Clean up data in the first column
+    table.querySelectorAll('tbody tr').forEach(row => {
+      const cell = row.cells[0]; // First column cell
+      if (cell) {
+        // console.log("Cleaning up cell content:", cell.textContent);
+        cell.textContent = cell.textContent.trim(); // Remove any leading/trailing spaces
+      }
+    });
+
+    console.log("Data in first column before sorting:");
+    table.querySelectorAll('tbody tr').forEach(row => {
+      console.log(row.cells[0]?.textContent.trim()); // Log first column data
+    });
+
+    console.log("Final table structure:");
+    console.log(table.outerHTML);
+
+
+
+    cleanTableStructure(table);
+
+    // Initialize DataTables after fixing the table structure
+    console.log("Initializing DataTables for", `#${uniqueId}`);
+    $(`#${uniqueId}`).on('draw.dt', function () {
+      console.log(`DataTables redraw completed for ${uniqueId}`);
+    });
+    
+    $(() => {
+      const tableSelector = `#${uniqueId}`;
+      if ($(tableSelector).length) { // Check if the table exists
+        $(tableSelector).DataTable({
+          paging: true,
+          searching: true,
+          order: [[0, 'asc']],
+          columnDefs: [
+            { targets: 0, type: 'string', orderable: true },
+            { targets: '_all', orderable: false }
+          ],
+        });
+        console.log("DataTables initialized for:", tableSelector);
+      } else {
+        console.error("Table not found for DataTables initialization:", tableSelector);
+      }
+    });
+    
+    
+    
+    // console.log("Table visibility:", $(`#${uniqueId}`).is(':visible'));
+
+    console.log("new30");
+
+    // Remove problematic tbody with placeholder rows
+    table.querySelectorAll('tbody').forEach(tbody => {
+      const rows = tbody.querySelectorAll('tr');
+      if (rows.length === 1 && rows[0].classList.contains('odd')) {
+        console.log("Removing tbody with placeholder row");
+        tbody.remove(); // Remove if it has only one row with class="odd"
+      }
+    });
+
+    // Reapply fixes after DataTables renders
+    $(`#${uniqueId}`).on('draw.dt', function () {
+      console.log('Reapplying fixes after DataTables redraw');
+      const table = document.querySelector(`#${uniqueId}`);
+      if (table) {
+        cleanTableStructure(table);
+        replacePWithCheckmark(containerId);
+      }
+    });
+
+
+   
 
     // Replace "P" with checkmarks after table creation
     replacePWithCheckmark(containerId);
-
   } else {
     document.getElementById(containerId).innerHTML = "<p>Sheet not found.</p>";
   }
 }
+
+// Function to clean the table structure
+function cleanTableStructure(table) {
+  // Remove any empty or placeholder tbody elements
+  table.querySelectorAll('tbody').forEach((tbody) => {
+    const rows = tbody.querySelectorAll('tr');
+    if (rows.length === 1 && rows[0].classList.contains('odd')) {
+      console.log('Removing tbody with placeholder row');
+      tbody.remove();
+    }
+  });
+
+  // Ensure there is only one <tbody> element
+  const allBodies = table.querySelectorAll('tbody');
+  if (allBodies.length > 1) {
+    console.warn('Multiple <tbody> elements detected. Merging...');
+    const mainTbody = allBodies[0];
+    for (let i = 1; i < allBodies.length; i++) {
+      const extraTbody = allBodies[i];
+      extraTbody.querySelectorAll('tr').forEach((row) => {
+        mainTbody.appendChild(row);
+      });
+      extraTbody.remove();
+    }
+  }
+}
+
+
+
 
 // Function to handle showing the correct section and loading the table if it's a massive table section
 function showGrid(subsectionId) {
@@ -77,7 +222,13 @@ function showGrid(subsectionId) {
 
   const sheetName = sheetMap[subsectionId];
   const containerId = `excelTableContainer-${subsectionId.split('-')[1]}`;
-
+  
+  // Clear the container content
+  const container = document.getElementById(containerId);
+  if (container) {
+    container.innerHTML = ''; // Clear the previous content
+  }
+  
   // Only load the Excel sheet if there is a matching sheet name
   if (sheetName) {
       loadExcelSheet(sheetName, containerId);
@@ -100,13 +251,13 @@ function replacePWithCheckmark(containerId) {
 
   cells.forEach(cell => {
     const cellContent = cell.textContent.trim();
-    console.log(`Checking cell content: "${cellContent}"`); // Log cell content
+    // console.log(`Checking cell content: "${cellContent}"`); // Log cell content
 
     // Check if cell content is "P" or matches typical tickmark alternatives
     if (cellContent === "P" ) {
       cell.innerHTML = "&#10003;"; // Unicode for checkmark
       cell.classList.add("checkmark"); // Optional CSS class for styling
-      console.log(`Replaced "P" with checkmark in cell.`);
+      // console.log(`Replaced "P" with checkmark in cell.`);
     }
   });
 }

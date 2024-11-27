@@ -197,6 +197,19 @@ figcaption {
   background-color: #f1f1f1;
 }
 
+.dataTables_wrapper {
+  margin-top: 20px;
+}
+
+.dataTables_filter {
+  margin-bottom: 10px;
+}
+
+.dataTables_length select {
+  margin-right: 10px;
+}
+
+
 /* Responsive font size */
 @media screen and (max-width: 600px) {
   .excel-table th, .excel-table td {
