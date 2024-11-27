@@ -43,6 +43,9 @@ h2 {
 /* Table Styling */
 table {
   width: 100%;
+  max-width: 100%; /* Ensure it doesn't exceed container width */
+  table-layout: fixed; /* Enforce consistent column widths */
+  overflow-wrap: break-word; /* Break long words */
   border-collapse: collapse;
   margin: 20px 0;
 }
@@ -167,6 +170,7 @@ figcaption {
 /* Excel Table Styling */
 .excel-table-container {
   overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+  max-width: 100%; /* Restrict container to page width */
 }
 
 .excel-table {
@@ -189,13 +193,28 @@ figcaption {
 
 /* Zebra striping for rows */
 .excel-table tr:nth-child(even) {
-  background-color: #92cbb2;
+  background-color: #7cbaa0;
+}
+
+/* Zebra striping for rows */
+.excel-table tr:nth-child(odd) {
+  background-color: #fefffe;
 }
 
 /* Hover effect for rows */
 .excel-table tr:hover {
   background-color: #f1f1f1;
 }
+
+table.dataTable tbody tr:nth-child(even) {
+  background-color: #c3a0a0 !important; /* Light gray for even rows */
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+  background-color: #b42424 !important; /* White for odd rows */
+}
+
+
 
 .dataTables_wrapper {
   margin-top: 20px;

@@ -13,7 +13,7 @@ function showSection(subsectionId) {
 
 async function loadExcelSheet(sheetName, containerId) {
   // Fetch the Excel file
-  const response = await fetch('papers.xlsx'); // Replace with your Excel file path
+  const response = await fetch('papersNew.xlsx'); // Replace with your Excel file path
   const arrayBuffer = await response.arrayBuffer();
   const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 
@@ -36,17 +36,36 @@ async function loadExcelSheet(sheetName, containerId) {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
-    rows.forEach((row, index) => {
-      if (index === 0 || index === 1) {
-        // Add Row 0 and Row 1 to the header
-        // The first two rows are headers
-        thead.appendChild(row);
-      } else {
-        // Add remaining rows to the body
-        // Remaining rows are data rows
-        tbody.appendChild(row);
-      }
-    });
+    // Check for specific sections
+    if (containerId === 'excelTableContainer-visual' || containerId === 'excelTableContainer-analytics') {
+      rows.forEach((row, index) => {
+        if (index < 3) {
+          thead.appendChild(row); // First three rows are headers
+        } else {
+          tbody.appendChild(row); // Fourth row onwards are data
+        }
+      });
+    } else {
+      rows.forEach((row, index) => {
+        if (index === 0 || index === 1) {
+          thead.appendChild(row); // First row is the header
+        } else {
+          tbody.appendChild(row); // Rest are data
+        }
+      });
+    }
+
+    // rows.forEach((row, index) => {
+    //   if (index === 0 || index === 1) {
+    //     // Add Row 0 and Row 1 to the header
+    //     // The first two rows are headers
+    //     thead.appendChild(row);
+    //   } else {
+    //     // Add remaining rows to the body
+    //     // Remaining rows are data rows
+    //     tbody.appendChild(row);
+    //   }
+    // });
 
     // Remove problematic tbody with placeholder rows
     table.querySelectorAll('tbody').forEach(tbody => {
@@ -105,6 +124,8 @@ async function loadExcelSheet(sheetName, containerId) {
 
 
     cleanTableStructure(table);
+    console.log(XLSX.utils.sheet_to_json(sheet).length, "rows loaded from sheet");
+
 
     // Initialize DataTables after fixing the table structure
     console.log("Initializing DataTables for", `#${uniqueId}`);
@@ -116,6 +137,8 @@ async function loadExcelSheet(sheetName, containerId) {
       const tableSelector = `#${uniqueId}`;
       if ($(tableSelector).length) { // Check if the table exists
         $(tableSelector).DataTable({
+          autoWidth: false, // Disable automatic column width adjustment
+          responsive: true, // Enable responsive design
           paging: true,
           searching: true,
           order: [[0, 'asc']],
@@ -134,7 +157,7 @@ async function loadExcelSheet(sheetName, containerId) {
     
     // console.log("Table visibility:", $(`#${uniqueId}`).is(':visible'));
 
-    console.log("new30");
+    console.log("new49");
 
     // Remove problematic tbody with placeholder rows
     table.querySelectorAll('tbody').forEach(tbody => {
@@ -228,7 +251,7 @@ function showGrid(subsectionId) {
   if (container) {
     container.innerHTML = ''; // Clear the previous content
   }
-  
+
   // Only load the Excel sheet if there is a matching sheet name
   if (sheetName) {
       loadExcelSheet(sheetName, containerId);
