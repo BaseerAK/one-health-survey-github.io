@@ -68,10 +68,10 @@ th {
   background-color: #f2f2f2;
 }
 
-.checkmark {
+/* .checkmark {
   color: green;
   font-weight: bold;
-}
+} */
 
 
 
@@ -239,7 +239,7 @@ table.dataTable tbody tr:nth-child(odd) {
 
 /* Checkmark styling */
 .checkmark {
-  color: green;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   font-size: 1.2em;
 }
@@ -247,7 +247,7 @@ table.dataTable tbody tr:nth-child(odd) {
 .excel-table th {
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #ffffff;
   z-index: 2;
 }
 
