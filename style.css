@@ -247,7 +247,10 @@ table.dataTable tbody tr:nth-child(odd) {
 .excel-table th {
   position: sticky;
   top: 0;
-  background-color: #ffffff;
+  background-color: #8b5959;
   z-index: 2;
 }
+
+
+
 
