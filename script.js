@@ -36,24 +36,42 @@ async function loadExcelSheet(sheetName, containerId) {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
-    // Check for specific sections
-    if (containerId === 'excelTableContainer-visual' || containerId === 'excelTableContainer-analytics') {
-      rows.forEach((row, index) => {
+    // // Process all rows, skipping empty rows
+    // rows.forEach((row, index) => {
+    //   const isRowEmpty = Array.from(row.cells).every(cell => cell.textContent.trim() === '');
+    //   if (isRowEmpty) {
+    //     return; // Skip empty rows
+    //   }
+    //   if (index < 3) {
+    //     thead.appendChild(row); // First three rows are headers
+    //   } else {
+    //     tbody.appendChild(row); // Fourth row onwards are data
+    //   }
+    // });
+
+    rows.forEach((row, index) => {
+      // Check if the row is empty
+      const isRowEmpty = Array.from(row.cells).every(cell => cell.textContent.trim() === '');
+      if (isRowEmpty) {
+        return; // Skip empty rows
+      }
+
+      // Handle specific sections
+      if (containerId === 'excelTableContainer-visual' || containerId === 'excelTableContainer-analytics') {
         if (index < 3) {
           thead.appendChild(row); // First three rows are headers
         } else {
           tbody.appendChild(row); // Fourth row onwards are data
         }
-      });
-    } else {
-      rows.forEach((row, index) => {
+      } else {
         if (index === 0 || index === 1) {
           thead.appendChild(row); // First row is the header
         } else {
           tbody.appendChild(row); // Rest are data
         }
-      });
-    }
+      }
+    });
+    
 
     
 
@@ -145,7 +163,7 @@ async function loadExcelSheet(sheetName, containerId) {
     
     // console.log("Table visibility:", $(`#${uniqueId}`).is(':visible'));
 
-    console.log("new89");
+    console.log("new99");
 
     // Remove problematic tbody with placeholder rows
     table.querySelectorAll('tbody').forEach(tbody => {
