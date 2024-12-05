@@ -43,6 +43,9 @@ h2 {
 /* Table Styling */
 table {
   width: 100%;
+  max-width: 100%; /* Ensure it doesn't exceed container width */
+  table-layout: fixed; /* Enforce consistent column widths */
+  overflow-wrap: break-word; /* Break long words */
   border-collapse: collapse;
   margin: 20px 0;
 }
@@ -65,10 +68,10 @@ th {
   background-color: #f2f2f2;
 }
 
-.checkmark {
+/* .checkmark {
   color: green;
   font-weight: bold;
-}
+} */
 
 
 
@@ -167,6 +170,7 @@ figcaption {
 /* Excel Table Styling */
 .excel-table-container {
   overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+  max-width: 100%; /* Restrict container to page width */
 }
 
 .excel-table {
@@ -189,13 +193,41 @@ figcaption {
 
 /* Zebra striping for rows */
 .excel-table tr:nth-child(even) {
-  background-color: #92cbb2;
+  background-color: #7cbaa0;
+}
+
+/* Zebra striping for rows */
+.excel-table tr:nth-child(odd) {
+  background-color: #fefffe;
 }
 
 /* Hover effect for rows */
 .excel-table tr:hover {
   background-color: #f1f1f1;
 }
+
+table.dataTable tbody tr:nth-child(even) {
+  background-color: #7cbaa0 !important; /* Light gray for even rows */
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+  background-color: #fefffe !important; /* White for odd rows */
+}
+
+
+
+.dataTables_wrapper {
+  margin-top: 20px;
+}
+
+.dataTables_filter {
+  margin-bottom: 10px;
+}
+
+.dataTables_length select {
+  margin-right: 10px;
+}
+
 
 /* Responsive font size */
 @media screen and (max-width: 600px) {
@@ -207,7 +239,7 @@ figcaption {
 
 /* Checkmark styling */
 .checkmark {
-  color: green;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   font-size: 1.2em;
 }
@@ -215,7 +247,7 @@ figcaption {
 .excel-table th {
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #ffffff;
   z-index: 2;
 }
 
